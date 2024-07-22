@@ -1,0 +1,89 @@
+def print_question(question, options):
+    """Prints the question and options."""
+    print(question)
+    for idx, option in enumerate(options, start=1):
+        print(f"{idx}. {option}")
+    print()
+
+def get_user_input():
+    """Gets and validates user input for options."""
+    while True:
+        try:
+            user_input = int(input("Enter your choice (1-4): "))
+            if 1 <= user_input <= 4:
+                return user_input - 1  # Return index (0-based)
+            else:
+                print("Please enter a number between 1 and 4.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+def evaluate_answer(user_choice, correct_index, options):
+    """Evaluates the user's answer and provides feedback."""
+    correct_answer = options[correct_index]
+    
+    if user_choice == correct_index:
+        print("Correct!\n")
+        return True
+    else:
+        print(f"Sorry, incorrect. The correct answer is: {correct_answer}\n")
+        return False
+
+def quiz(questions):
+    """Runs the quiz based on provided questions."""
+    score = 0
+    
+    print("Welcome to the Quiz Game!\n")
+    
+    for question_data in questions:
+        print_question(question_data["question"], question_data["options"])
+        user_choice = get_user_input()
+        
+        correct_index = question_data["correct_answer"]
+        is_correct = evaluate_answer(user_choice, correct_index, question_data["options"])
+        
+        if is_correct:
+            score += 1
+    
+    print(f"Quiz ended! Your final score is {score}/{len(questions)}.")
+
+def main():
+    # Define your questions here
+    questions = [
+        {
+            "question": "What is the capital of Japan?",
+            "options": ["Tokyo", "Beijing", "Seoul", "Bangkok"],
+            "correct_answer": 0
+        },
+        {
+            "question": "Who painted the Mona Lisa?",
+            "options": ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Michelangelo"],
+            "correct_answer": 1
+        },
+        {
+            "question": "Which planet is the largest in our solar system?",
+            "options": ["Venus", "Mars", "Jupiter", "Saturn"],
+            "correct_answer": 2
+        },
+        {
+            "question": "What is the chemical symbol for the element Gold?",
+            "options": ["Au", "Ag", "Fe", "Hg"],
+            "correct_answer": 0
+        },
+        {
+            "question": "Who wrote the play 'Hamlet'?",
+            "options": ["William Shakespeare", "George Bernard Shaw", "Tennessee Williams", "Oscar Wilde"],
+            "correct_answer": 0
+        },
+        {
+            "question": "What is the longest river in the world?",
+            "options": ["Amazone", "Nile", "Mississippi", "Yangtze"],
+            "correct_answer": 1
+        }
+    ]
+    
+    # Run the quiz
+    quiz(questions)
+
+# Entry point of the program
+if name == "main":
+    main()
